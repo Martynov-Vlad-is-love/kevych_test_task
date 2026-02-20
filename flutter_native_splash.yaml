@@ -1,0 +1,13 @@
+flutter_native_splash:
+  android: true
+  ios: true
+
+  background_image: "assets/dark-gradient.jpg"
+  image: "assets/logo.png"
+
+  android_gravity: center
+  fullscreen: true
+
+  android_12:
+    color: "#d4e4ed"
+    image: "assets/logo.png"
