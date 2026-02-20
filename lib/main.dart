@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:kevych_test_task/ui/screen/home_page.dart';
 import 'package:kevych_test_task/ui/screen/splash_screen.dart';
 
 void main() {
@@ -17,7 +16,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: .fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const HomePage(),
+      home: const SplashScreen(),
     );
   }
 }
