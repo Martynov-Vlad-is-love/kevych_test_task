@@ -53,7 +53,7 @@ class _SearchFieldState extends State<SearchField>
   Widget build(BuildContext context) {
     return AnimatedBuilder(
       animation: anim,
-      builder: (_, __) {
+      builder: (_, _) {
         return ClipRRect(
           borderRadius: BorderRadius.circular(20),
           child: BackdropFilter(
