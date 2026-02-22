@@ -23,15 +23,9 @@ class WeatherAppBar extends StatelessWidget implements PreferredSizeWidget {
               color: Colors.white,
               fontSize: 36,
               letterSpacing: 1.2,
+              fontWeight: FontWeight.bold
             ),
           ),
-          leading: const Icon(Icons.menu),
-          actions: const [
-            Icon(Icons.location_on),
-            SizedBox(width: 10),
-            Icon(Icons.settings),
-            SizedBox(width: 10),
-          ],
         ),
       ),
     );

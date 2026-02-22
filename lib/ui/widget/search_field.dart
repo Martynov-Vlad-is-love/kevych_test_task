@@ -8,7 +8,7 @@ class SearchField extends StatefulWidget {
   const SearchField({
     super.key,
     this.onChanged,
-    this.hint = "Search city...",
+    this.hint = "Input city...",
   });
 
   @override

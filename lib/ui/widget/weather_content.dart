@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:kevych_test_task/ui/widget/info_row.dart';
 import 'package:kevych_test_task/ui/widget/search_section.dart';
 import 'package:kevych_test_task/ui/widget/weather_card.dart';
+import 'package:kevych_test_task/ui/widget/weather_forecast.dart';
 
 class WeatherContent extends StatelessWidget {
   const WeatherContent({super.key});
@@ -16,8 +16,9 @@ class WeatherContent extends StatelessWidget {
           SizedBox(height: 20),
           WeatherCard(),
           SizedBox(height: 40),
-          InfoRow(),
+          WeatherForecast(),
           SizedBox(height: 40),
+
         ],
       ),
     );

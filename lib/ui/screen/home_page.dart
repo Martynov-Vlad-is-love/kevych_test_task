@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kevych_test_task/ui/controller/location_controller.dart';
+import 'package:kevych_test_task/ui/controller/weather_controller.dart';
 import 'package:kevych_test_task/ui/widget/error_view.dart';
 import 'package:kevych_test_task/ui/widget/gradient_background.dart';
 import 'package:kevych_test_task/ui/widget/weather_app_bar.dart';
@@ -14,13 +15,22 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
   @override
   void initState() {
     super.initState();
-    Future.microtask(() {
-      if(mounted){
-        context.read<LocationController>().requestLocation();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      final locationController = context.read<LocationController>();
+      final weatherController = context.read<WeatherController>();
+
+      await locationController.requestLocation();
+
+      final data = locationController.locationData;
+      if (data != null && mounted) {
+        await weatherController.getWeatherByCoord(
+          data.latitude.toString(),
+          data.longitude.toString(),
+        );
       }
     });
   }
@@ -38,24 +48,25 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+
 class HomeBody extends StatelessWidget {
   const HomeBody({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final controller = context.watch<LocationController>();
+    final locationController = context.watch<LocationController>();
 
-    switch (controller.state) {
+    switch (locationController.state) {
       case LoadState.loading:
         return const Center(
           child: CircularProgressIndicator(color: Colors.white),
         );
 
       case LoadState.error:
-        return ErrorView(message: controller.error);
+        return ErrorView(message: locationController.error);
 
       case LoadState.loaded:
-        return const WeatherContent();
+        return WeatherContent();
     }
   }
 }
