@@ -24,7 +24,7 @@ class _SearchSectionState extends State<SearchSection> {
   void _onSearchChanged(String query) {
     final weatherController = context.read<WeatherController>();
     if (_debounce?.isActive ?? false) _debounce?.cancel();
-    _debounce = Timer(const Duration(milliseconds: 500), () {
+    _debounce = Timer(const Duration(milliseconds: 1000), () {
       weatherController.getWeatherByName(query);
     });
   }

@@ -9,9 +9,12 @@ class WeatherRepository implements Repository<Weather> {
   WeatherRepository(this.api);
 
   @override
-  Future<Weather> getByName(String city) async {
+  Future<Weather?> getByName(String city) async {
     final json = await api.fetchWeather(city);
 
+    if(json.isEmpty){
+      return null;
+    }
     final dto = WeatherResponse.fromJson(json);
 
     return Weather(

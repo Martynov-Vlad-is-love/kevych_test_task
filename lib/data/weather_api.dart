@@ -7,6 +7,7 @@ class WeatherApi {
   WeatherApi({required this.client});
 
   Future<Map<String, dynamic>> fetchWeather(String city) async {
+
     final res = await client.get(
       Uri.parse(
         'https://geocoding-api.open-meteo.com/v1/search?name=$city&count=1&language=en&format=json',
@@ -18,8 +19,10 @@ class WeatherApi {
     }
     final decoded = jsonDecode(res.body) as Map<String, dynamic>;
 
-    final results = decoded['results'] as List;
-
+    final results = decoded['results'];
+    if (results == null || results is! List || results.isEmpty) {
+      return {};
+    }
     final first = results.first as Map<String, dynamic>;
 
     final name = first['name'].toString();

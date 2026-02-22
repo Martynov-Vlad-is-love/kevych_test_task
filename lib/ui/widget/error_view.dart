@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kevych_test_task/ui/controller/location_controller.dart';
+import 'package:kevych_test_task/ui/controller/weather_controller.dart';
 import 'package:provider/provider.dart';
 
 class ErrorView extends StatelessWidget {
@@ -8,8 +9,8 @@ class ErrorView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = context.read<LocationController>();
-
+    final weatherController = context.read<WeatherController>();
+    final locationController = context.read<LocationController>();
     return Center(
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -18,7 +19,14 @@ class ErrorView extends StatelessWidget {
               style: const TextStyle(color: Colors.white)),
           const SizedBox(height: 20),
           ElevatedButton(
-            onPressed: controller.retry,
+            onPressed: (){
+              final lat = locationController.locationData?.latitude.toString();
+              final lon = locationController.locationData?.longitude.toString();
+              if(lat != null && lon != null){
+                weatherController.retry(lat, lon);
+
+              }
+            },
             child: const Text("Retry"),
           )
         ],

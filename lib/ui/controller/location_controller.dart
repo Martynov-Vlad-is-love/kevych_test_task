@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:kevych_test_task/enum/load_state.dart';
 import 'package:location/location.dart';
-
-enum LoadState { loading, loaded, error }
 
 class LocationController extends ChangeNotifier {
   final Location _location = Location();
@@ -26,7 +25,7 @@ class LocationController extends ChangeNotifier {
       if (!_serviceEnabled) {
         _serviceEnabled = await _location.requestService();
         if (!_serviceEnabled) {
-          _fail("Геолокація вимкнута");
+          _fail("Geolocation disabled.");
           return;
         }
       }
@@ -38,14 +37,14 @@ class LocationController extends ChangeNotifier {
       }
 
       if (_permissionStatus != PermissionStatus.granted) {
-        _fail("Дозвіл на отримання геолокації не відхилено");
+        _fail("Geolocation permission denied.");
         return;
       }
 
       _locationData = await _location.getLocation();
 
       if (_locationData == null) {
-        _fail("Не вдалося отримати геолокацію");
+        _fail("Failed to receive geolocation");
         return;
       }
 

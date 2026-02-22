@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:kevych_test_task/enum/load_state.dart';
 import 'package:kevych_test_task/ui/controller/location_controller.dart';
 import 'package:kevych_test_task/ui/controller/weather_controller.dart';
 import 'package:kevych_test_task/ui/widget/error_view.dart';
 import 'package:kevych_test_task/ui/widget/gradient_background.dart';
+import 'package:kevych_test_task/ui/widget/search_section.dart';
 import 'package:kevych_test_task/ui/widget/weather_app_bar.dart';
 import 'package:kevych_test_task/ui/widget/weather_content.dart';
 import 'package:provider/provider.dart';
@@ -54,19 +56,30 @@ class HomeBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final locationController = context.watch<LocationController>();
+    return Column(
+      children: [
+        SizedBox(height: 20),
+        const SearchSection(), // ← теперь не пересоздаётся
 
-    switch (locationController.state) {
-      case LoadState.loading:
-        return const Center(
-          child: CircularProgressIndicator(color: Colors.white),
-        );
+        Expanded(
+          child: Consumer<WeatherController>(
+            builder: (_, weatherController, __) {
+              switch (weatherController.state) {
+                case LoadState.loading:
+                  return const Center(
+                    child: CircularProgressIndicator(color: Colors.white),
+                  );
 
-      case LoadState.error:
-        return ErrorView(message: locationController.error);
+                case LoadState.error:
+                  return ErrorView(message: weatherController.error);
 
-      case LoadState.loaded:
-        return WeatherContent();
-    }
+                case LoadState.loaded:
+                  return const WeatherContent();
+              }
+            },
+          ),
+        ),
+      ],
+    );
   }
 }

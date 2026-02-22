@@ -1,3 +1,3 @@
 abstract class Repository<T> {
-  Future<T> getByName(String city);
+  Future<T?> getByName(String city);
 }
