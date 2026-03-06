@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:kevych_test_task/ui/controller/location_controller.dart';
-import 'package:kevych_test_task/ui/controller/weather_controller.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kevych_test_task/presentation/cubit/location/location_cubit.dart';
+import 'package:kevych_test_task/presentation/cubit/location/location_state.dart';
+import 'package:kevych_test_task/presentation/cubit/weather/weather_cubit.dart';
 
 class ErrorView extends StatelessWidget {
   final String? message;
@@ -9,8 +10,6 @@ class ErrorView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final weatherController = context.read<WeatherController>();
-    final locationController = context.read<LocationController>();
     return Center(
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -20,11 +19,12 @@ class ErrorView extends StatelessWidget {
           const SizedBox(height: 20),
           ElevatedButton(
             onPressed: (){
-              final lat = locationController.locationData?.latitude.toString();
-              final lon = locationController.locationData?.longitude.toString();
-              if(lat != null && lon != null){
-                weatherController.retry(lat, lon);
-
+              final locationState = context.read<LocationCubit>().state;
+              if (locationState is LocationLoaded) {
+                context.read<WeatherCubit>().retry(
+                  locationState.data.latitude.toString(),
+                  locationState.data.longitude.toString(),
+                );
               }
             },
             child: const Text("Retry"),

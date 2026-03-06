@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:kevych_test_task/ui/controller/weather_controller.dart';
-import 'package:kevych_test_task/ui/widget/search_field.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kevych_test_task/presentation/cubit/weather/weather_cubit.dart';
+import 'package:kevych_test_task/presentation/widget/search_field.dart';
 
 class SearchSection extends StatefulWidget {
   const SearchSection({super.key});
@@ -22,10 +22,9 @@ class _SearchSectionState extends State<SearchSection> {
   }
 
   void _onSearchChanged(String query) {
-    final weatherController = context.read<WeatherController>();
     if (_debounce?.isActive ?? false) _debounce?.cancel();
     _debounce = Timer(const Duration(milliseconds: 1000), () {
-      weatherController.getWeatherByName(query);
+      context.read<WeatherCubit>().getWeatherByName(query);
     });
   }
 

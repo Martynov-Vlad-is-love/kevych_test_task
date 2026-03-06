@@ -1,4 +1,5 @@
-import 'package:kevych_test_task/ui/model/daily_weather.dart';
+
+import 'package:kevych_test_task/data/model/daily_weather.dart';
 
 class Weather {
   final String city;

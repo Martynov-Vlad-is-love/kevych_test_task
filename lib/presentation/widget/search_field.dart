@@ -79,6 +79,7 @@ class _SearchFieldState extends State<SearchField>
                 onChanged: widget.onChanged,
                 decoration: InputDecoration(
                   border: InputBorder.none,
+                  contentPadding: const EdgeInsets.symmetric(vertical: 14),
                   hintText: widget.hint,
                   hintStyle:
                   TextStyle(color: Colors.white.withValues(alpha:0.7)),

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
-import 'package:kevych_test_task/data/weather_api.dart';
-import 'package:kevych_test_task/ui/controller/location_controller.dart';
-import 'package:kevych_test_task/ui/controller/weather_controller.dart';
-import 'package:kevych_test_task/ui/repository/weather_repository.dart';
-import 'package:kevych_test_task/ui/screen/splash_screen.dart';
-import 'package:provider/provider.dart';
+import 'package:kevych_test_task/data/datasource/weather_api.dart';
+import 'package:kevych_test_task/presentation/cubit/location/location_cubit.dart';
+import 'package:kevych_test_task/presentation/cubit/weather/weather_cubit.dart';
+import 'package:kevych_test_task/presentation/screen/splash_screen.dart';
+import 'package:kevych_test_task/data/repository/weather_repository.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,13 +14,13 @@ Future<void> main() async {
     client: http.Client(),
   );
 
-  final repo = WeatherRepository(api);
+  final repo = WeatherRepositoryImpl(api);
 
   runApp(
-    MultiProvider(
+    MultiBlocProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => LocationController()),
-        ChangeNotifierProvider(create: (_) => WeatherController(repo)),
+        BlocProvider(create: (_) => LocationCubit()),
+        BlocProvider(create: (_) => WeatherCubit(repo)),
       ],
       child: const MyApp(),
     ),

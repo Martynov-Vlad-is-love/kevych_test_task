@@ -1,8 +1,9 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:kevych_test_task/ui/model/current_units.dart';
-import 'package:kevych_test_task/ui/model/current_weather.dart';
-import 'package:kevych_test_task/ui/model/daily_units.dart';
-import 'package:kevych_test_task/ui/model/daily_weather.dart';
+import 'package:kevych_test_task/data/model/current_units.dart';
+import 'package:kevych_test_task/data/model/current_weather.dart';
+import 'package:kevych_test_task/data/model/daily_units.dart';
+import 'package:kevych_test_task/data/model/daily_weather.dart';
+
 
 part 'weather_response.g.dart';
 

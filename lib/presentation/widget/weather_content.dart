@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:kevych_test_task/ui/widget/weather_card.dart';
-import 'package:kevych_test_task/ui/widget/weather_forecast.dart';
+import 'package:kevych_test_task/presentation/widget/weather_card.dart';
+import 'package:kevych_test_task/presentation/widget/weather_forecast.dart';
 
 class WeatherContent extends StatelessWidget {
   const WeatherContent({super.key});
